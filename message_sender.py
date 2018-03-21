@@ -20,3 +20,11 @@ message = messaging.Message(
 response = messaging.send(message)
 # Response is a message ID string.
 print('Successfully sent message:', response)
+
+
+
+def store_latest_steps() :
+	print "success"
+	return;
+
+store_latest_steps()
