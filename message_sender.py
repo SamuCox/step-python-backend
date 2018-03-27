@@ -1,5 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, db
+from stepserver.models import Question, Option
 from datetime import date
 
 # Fetch the service account key JSON file contents
@@ -12,7 +13,7 @@ firebase_admin.initialize_app(cred, {
 
 class MessageSender:
 
-	def __init__(self, fb_db):
+	def __init__(self, fb_db, md_Question, md_Option):
 		self.fb_db = fb_db
 
 	#take in uid, steps(?), date
@@ -21,7 +22,10 @@ class MessageSender:
 	def generate_message(self):
 		print()
 
-	def generate_section_graph(self):
+	def generate_section_streak_graph(self):
+		#user=md_User.objects.get(user_id=key)
+		streakGraphPreQuestions = md_Question.objects.filter(section='streak_graph_pre')
+		streakGraphPostQuestions = md_Question.objects.filter(section='streak_graph_post')
 		return {
 					'type' : "graph",
 					'startTime' : "2018-02-08",
@@ -30,6 +34,10 @@ class MessageSender:
 					'dates': [8, 9, 10, 11, 12, 13, 14, 15],
 					'content' : "You walk a lot"
 				}
+
+	def generate_section_stats_graph(self): 
+	 
+	def generate_section_graph(self):  
 
 	def generate_section_streak_comparison(self):
 		return {
@@ -167,5 +175,5 @@ class MessageSender:
 		#date=date.today(), defaults={'user_id': key, 'message_id': key})
 	#print stepcount
 	
-ms = MessageSender(db)
+ms = MessageSender(db, Question, Option)
 ms.send_messages()
