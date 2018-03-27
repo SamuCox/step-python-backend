@@ -12,11 +12,11 @@ class User(models.Model):
 	context = models.CharField(max_length=100)
 
 class Stepcount(models.Model):
-	user_id = models.CharField(max_length=200)
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	date = models.DateField()
 	step_count = models.IntegerField(default=0)
 
 class Message(models.Model):
-	user_id = models.CharField(max_length=200)
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	message_id = models.CharField(max_length=200)
 	date = models.DateField()

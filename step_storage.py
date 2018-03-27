@@ -29,8 +29,9 @@ for key, val in userList.items():
 	insert_list[key] = val['steps']
 	for key2 in val['steps']:
 		stepcount=val['steps'][key2]
+		user=User.objects.get(user_id=key)
 		stepcount, created = Stepcount.objects.update_or_create(
-			date=date(stepcount['year'], stepcount['month'], stepcount['date']), defaults={'user_id': key, 'step_count': stepcount['step']})
+			date=date(stepcount['year'], stepcount['month'], stepcount['date']), defaults={'user_id': user, 'step_count': stepcount['step']})
 		print stepcount
 	print "yohoo"
 
