@@ -11,16 +11,16 @@ firebase_admin.initialize_app(cred, {
 	'databaseURL': 'https://step-customer.firebaseio.com/'
 	})
 
-# store_latest_steps
-ref = db.reference('profile')
-userList = ref.get()
-
-# database
-for key, val in userList.items():
-	msgref = db.reference('profile/{key}/messages')
+def send_messages(fb_db):
+	# store_latest_steps
+	ref = fb_db.reference('profile')
+	userList = ref.get()
+	# database
+	for key, val in userList.items():
+		msgref = fb_db.reference('profile/{key}/messages')
 	#generate msg and store it to firebase
-	message, created = Message.objects.update_or_create(
-		date=date.today(), defaults={'user_id': key, 'message_id': key})
-	print stepcount
-
-def generateMsg():
+	#message, created = Message.objects.update_or_create(
+		#date=date.today(), defaults={'user_id': key, 'message_id': key})
+	#print stepcount
+	
+send_messages(db)
