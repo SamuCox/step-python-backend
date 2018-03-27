@@ -1,0 +1,387 @@
+#Questions
+
+# streak_graph pre&post
+- model: stepserver.question
+  pk: 1
+  fields:
+    section: streak_graph_pre
+    category: field
+    index: 0
+    content: Please describe and explain your recent walking activity?
+- model: stepserver.question
+  pk: 2
+  fields:
+    section: streak_graph_pre
+    category: label
+    index: 1
+    content: Please choose one of the following labels to describe your recent walking activity.
+- model: stepserver.question
+  pk: 3
+  fields:
+    section: streak_graph_post
+    category: likert
+    index: 0
+    content: Do you agree or disagree that the analysis is accurate and matches your walking behavior?
+#todo - fill in real content
+- model: stepserver.question
+  pk: 4
+  fields:
+    section: streak_graph_post
+    category: field
+    index: 1
+    content: Why do you agree / disagree?
+- model: stepserver.question
+  pk: 5
+  fields:
+    section: streak_graph_post
+    category: field
+    index: 2
+    content: Why do you think that the analysis gave this label?
+
+# stats_graph pre&post
+- model: stepserver.question
+  pk: 6
+  fields:
+    section: stats_graph_pre
+    category: field
+    index: 0
+    content: Please describe and explain your recent walking activity?
+- model: stepserver.question
+  pk: 7
+  fields:
+    section: stats_graph_post
+    category: likert
+    index: 0
+    content: Do you agree or disagree that, by looking at these data, you gain insights of strengths and weaknesses of your walking activity?
+- model: stepserver.question
+  pk: 8
+  fields:
+    section: stats_graph_post
+    category: likert
+    index: 1
+    content: Do you agree or disagree that, by looking at these data, you are encouraged to reflect on your walking activity?
+
+# streak_comparison
+- model: stepserver.question
+  pk: 9
+  fields:
+    section: streak_comparison
+    category: field
+    index: 0
+    content: How do you feel when looking at the comparison?
+- model: stepserver.question
+  pk: 10
+  fields:
+    section: streak_comparison
+    category: likert
+    index: 1
+    content: To what extent do you feel inferior after seeing comparisons to other users?
+- model: stepserver.question
+  pk: 11
+  fields:
+    section: streak_comparison
+    category: likert
+    index: 2
+    content: To what extent do you feel encouraged after seeing comparisons to other users?
+- model: stepserver.question
+  pk: 12
+  fields:
+    section: streak_comparison
+    category: likert
+    index: 3
+    content: To what extent do you feel the group of users you was compared to was reasonable and relevant to you?
+- model: stepserver.question
+  pk: 13
+  fields:
+    section: streak_comparison
+    category: likert
+    index: 4
+    content: How satisfied are you with your current walking activity?
+- model: stepserver.question
+  pk: 14
+  fields:
+    section: streak_comparison
+    category: likert
+    index: 5
+    content: Does your satisfaction with your walking data change after viewing another user’s walking data?
+
+# stats_comparison
+- model: stepserver.question
+  pk: 15
+  fields:
+    section: stats_comparison
+    category: field
+    index: 0
+    content: How do you feel when looking at the comparison?
+- model: stepserver.question
+  pk: 16
+  fields:
+    section: stats_comparison
+    category: likert
+    index: 1
+    content: To what extent do you feel inferior after seeing comparisons to other users?
+- model: stepserver.question
+  pk: 17
+  fields:
+    section: stats_comparison
+    category: likert
+    index: 2
+    content: To what extent do you feel encouraged after seeing comparisons to other users?
+- model: stepserver.question
+  pk: 18
+  fields:
+    section: stats_comparison
+    category: likert
+    index: 3
+    content: To what extent do you feel the group of users you was compared to was reasonable and relevant to you?
+- model: stepserver.question
+  pk: 19
+  fields:
+    section: stats_comparison
+    category: likert
+    index: 4
+    content: How satisfied are you with your current walking activity?
+- model: stepserver.question
+  pk: 20
+  fields:
+    section: stats_comparison
+    category: likert
+    index: 5
+    content: Does your satisfaction with your walking data change after viewing another user’s walking data?
+
+
+# challenge_pick
+- model: stepserver.question
+  pk: 21
+  fields:
+    section: challenge_pick
+    category: likert
+    index: 0
+    content: How satisfied are you with your current walking activity?
+- model: stepserver.question
+  pk: 22
+  fields:
+    section: challenge_pick
+    category: likert
+    index: 1
+    content: Does your satisfaction with your walking data change after viewing another user’s walking data?
+
+
+# challenge_completed
+- model: stepserver.question
+  pk: 23
+  fields:
+    section: challenge_completed
+    category: field
+    index: 0
+    content: What did you do to complete the task?
+- model: stepserver.question
+  pk: 24
+  fields:
+    section: challenge_completed
+    category: mcq
+    index: 1
+    content: How long did it take to complete the task?
+- model: stepserver.question
+  pk: 25
+  fields:
+    section: challenge_completed
+    category: likert
+    index: 2
+    content: How difficult did you find the task?
+- model: stepserver.question
+  pk: 26
+  fields:
+    section: challenge_completed
+    category: likert
+    index: 3
+    content: Do you agree or disagree that the task helps you walk more?
+- model: stepserver.question
+  pk: 27
+  fields:
+    section: challenge_completed
+    category: field
+    index: 4
+    content: Would you have completed the task regardless of receiving this prompt? Please explain your answer.
+
+
+# challenge_attempted
+- model: stepserver.question
+  pk: 28
+  fields:
+    section: challenge_attempted
+    category: field
+    index: 0
+    content: What did you do to attempt the task?
+- model: stepserver.question
+  pk: 29
+  fields:
+    section: challenge_attempted
+    category: mcq
+    index: 1
+    content: How long did you spend on the task?
+- model: stepserver.question
+  pk: 30
+  fields:
+    section: challenge_attempted
+    category: likert
+    index: 2
+    content: Do you agree or disagree that the task prompts you to walk more?
+- model: stepserver.question
+  pk: 31
+  fields:
+    section: challenge_attempted
+    category: mcq
+    index: 3
+    content: Why didn’t you complete the challenge?
+- model: stepserver.question
+  pk: 32
+  fields:
+    section: challenge_attempted
+    category: field
+    index: 4
+    content: What would you have done differently to complete the challenge?
+
+# challenge_not_attempted
+- model: stepserver.question
+  pk: 33
+  fields:
+    section: challenge_not_attempted
+    category: mcq_field
+    index: 0
+    content: Why didn’t you attempt the challenge?
+- model: stepserver.question
+  pk: 34
+  fields:
+    section: challenge_not_attempted
+    category: field
+    index: 1
+    content: What would you have done differently to complete the challenge?
+
+# overall
+- model: stepserver.question
+  pk: 35
+  fields:
+    section: overall
+    category: likert
+    index: 0
+    content: I am motivated to walk more steps.
+- model: stepserver.question
+  pk: 36
+  fields:
+    section: overall
+    category: likert
+    index: 1
+    content: The message makes me feel that I can succeed at being healthy.
+
+
+
+
+#Options for MCQ questions
+# Q24
+- model: stepserver.option
+  pk: 1
+  fields:
+    question: 24
+    content: No time
+- model: stepserver.option
+  pk: 2
+  fields:
+    question: 24
+    content: less than 10 minutes
+- model: stepserver.option
+  pk: 3
+  fields:
+    question: 24
+    content: less than 30 minutes
+- model: stepserver.option
+  pk: 4
+  fields:
+    question: 24
+    content: less than 1 hour
+- model: stepserver.option
+  pk: 5
+  fields:
+    question: 24
+    content: more than 1 hour
+
+# Q29
+- model: stepserver.option
+  pk: 6
+  fields:
+    question: 29
+    content: No time
+- model: stepserver.option
+  pk: 7
+  fields:
+    question: 29
+    content: less than 10 minutes
+- model: stepserver.option
+  pk: 8
+  fields:
+    question: 29
+    content: less than 30 minutes
+- model: stepserver.option
+  pk: 9
+  fields:
+    question: 29
+    content: less than 1 hour
+- model: stepserver.option
+  pk: 10
+  fields:
+    question: 29
+    content: more than 1 hour
+
+# Q31
+- model: stepserver.option
+  pk: 11
+  fields:
+    question: 31
+    content: not interested
+- model: stepserver.option
+  pk: 12
+  fields:
+    question: 31
+    content: too difficult
+- model: stepserver.option
+  pk: 13
+  fields:
+    question: 31
+    content: tedious
+- model: stepserver.option
+  pk: 14
+  fields:
+    question: 31
+    content: forgot to complete
+- model: stepserver.option
+  pk: 15
+  fields:
+    question: 31
+    content: schedule changed
+
+# Q33
+- model: stepserver.option
+  pk: 16
+  fields:
+    question: 33
+    content: not interested
+- model: stepserver.option
+  pk: 17
+  fields:
+    question: 33
+    content: too difficult
+- model: stepserver.option
+  pk: 18
+  fields:
+    question: 33
+    content: tedious
+- model: stepserver.option
+  pk: 19
+  fields:
+    question: 33
+    content: forgot to check the challenge
+- model: stepserver.option
+  pk: 20
+  fields:
+    question: 33
+    content: schedule changed
