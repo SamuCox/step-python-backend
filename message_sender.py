@@ -15,6 +15,8 @@ class MessageSender:
 
 	def __init__(self, fb_db, md_Question, md_Option):
 		self.fb_db = fb_db
+		self.md_Question = md_Question
+		self.md_Option = md_Option
 
 	#take in uid, steps(?), date
 	#require control grp info
@@ -24,8 +26,12 @@ class MessageSender:
 
 	def generate_section_streak_graph(self):
 		#user=md_User.objects.get(user_id=key)
-		streakGraphPreQuestions = md_Question.objects.filter(section='streak_graph_pre')
-		streakGraphPostQuestions = md_Question.objects.filter(section='streak_graph_post')
+		mcqCount = 0
+		likertCount = 0
+		fieldCount = 0
+
+		streakGraphPreQuestions = self.md_Question.objects.filter(section='streak_graph_pre')
+		streakGraphPostQuestions = self.md_Question.objects.filter(section='streak_graph_post')
 		return {
 					'type' : "graph",
 					'startTime' : "2018-02-08",
@@ -35,9 +41,10 @@ class MessageSender:
 					'content' : "You walk a lot"
 				}
 
-	def generate_section_stats_graph(self): 
-	 
-	def generate_section_graph(self):  
+	#def generate_section_stats_graph(self): 
+
+	def generate_section_graph(self): 
+		return self.generate_section_streak_graph()
 
 	def generate_section_streak_comparison(self):
 		return {
@@ -117,12 +124,12 @@ class MessageSender:
 				}
 
 	#todo: check control grp to pick the right comparison
-	def generate_section_comparison():
+	def generate_section_comparison(self):
 		section_streak_comparison = self.generate_section_streak_comparison()
 		section_stats_comparison = self.generate_section_stats_comparison()
 		return section_streak_comparison
 
-	def generate_section_challenge():
+	def generate_section_challenge(self):
 		return {
 					'type' : "challenge",
 					'hasPicked' : False,
@@ -147,6 +154,20 @@ class MessageSender:
 						'content' : "Contact your best friend and go for a short walk together!",
 						'fun' : 4,
 						'difficulty' : 2
+					}],
+					'survey' : [{
+						'index' : 0,
+						'type' : "likert",
+						'question' : "To what extent do you feel inferior after seeing comparisons to other users?",
+						'isAnswered' : False,
+						'answer' : ""
+					}, {
+						'index' : 1,
+						'type' : "likert",
+						'question' : "To what extent do you feel encouraged after seeing comparisons to other users?",
+						'isAnswered' : False,
+						'answer' : ""
+					}]
 					}
 
 	def send_messages(self):
