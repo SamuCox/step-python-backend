@@ -135,6 +135,8 @@ class MessageSender:
 					'hasPicked' : False,
 					'pickedIdx' : 0,
 					'hasCompleted' : False,
+					'hasGivenup' : False,
+					'hasAttempted' : False,
 					'options' : [
 					{
 						'title': "Walk 10 min",
@@ -155,7 +157,46 @@ class MessageSender:
 						'fun' : 4,
 						'difficulty' : 2
 					}],
-					'survey' : [{
+					'pre_survey' : [{
+						'index' : 0,
+						'type' : "likert",
+						'question' : "To what extent do you feel inferior after seeing comparisons to other users?",
+						'isAnswered' : False,
+						'answer' : ""
+					}, {
+						'index' : 1,
+						'type' : "likert",
+						'question' : "To what extent do you feel encouraged after seeing comparisons to other users?",
+						'isAnswered' : False,
+						'answer' : ""
+					}],
+					'complete_survey' : [{
+						'index' : 0,
+						'type' : "likert",
+						'question' : "To what extent do you feel inferior after seeing comparisons to other users?",
+						'isAnswered' : False,
+						'answer' : ""
+					}, {
+						'index' : 1,
+						'type' : "likert",
+						'question' : "To what extent do you feel encouraged after seeing comparisons to other users?",
+						'isAnswered' : False,
+						'answer' : ""
+					}],
+					'attempted_survey' : [{
+						'index' : 0,
+						'type' : "likert",
+						'question' : "To what extent do you feel inferior after seeing comparisons to other users?",
+						'isAnswered' : False,
+						'answer' : ""
+					}, {
+						'index' : 1,
+						'type' : "likert",
+						'question' : "To what extent do you feel encouraged after seeing comparisons to other users?",
+						'isAnswered' : False,
+						'answer' : ""
+					}],
+					'unattempted_survey' : [{
 						'index' : 0,
 						'type' : "likert",
 						'question' : "To what extent do you feel inferior after seeing comparisons to other users?",
@@ -185,7 +226,7 @@ class MessageSender:
 			new_msg_ref = msgref.push()
 			new_msg_ref.set({
 				'content': "hehahah",
-				'time': {'date': 15, 'month': 2, 'year': 2018},
+				'time': {'date': 2, 'month': 3, 'year': 2018},
 				'hasCompleted': False,
 				'sections': [section_graph, section_comparison, section_challenge]
 			})
