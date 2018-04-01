@@ -14,44 +14,33 @@ firebase_admin.initialize_app(cred, {
 # As an admin, the app has access to read and write all data, regradless of Security Rules
 # ref = db.reference('restricted_access/secret_document')
 # print ref.get()
+class StepStorageManager:
 
-def store_all_users_and_steps(fb_db, md_User, md_Stepcount, dt_date):
-	# store_latest_steps
-	ref = fb_db.reference('profile')
-	userList = ref.get()
+	def __init__(self, fb_db, dt_date, md_User, md_Stepcount):
+		self.fb_db = fb_db
+		self.md_User = md_User
+		self.md_Stepcount = md_Stepcount
+		self.dt_date = dt_date
 
-	insert_list = {}
+	def store_all_users_and_steps(self):
+		# store_latest_steps
+		ref = self.fb_db.reference('profile')
+		userList = ref.get()
 
-	for key, val in userList.items():
-		user, created = md_User.objects.update_or_create(
-			user_id=key, defaults={'comparison': 'fd', 'context': 'sl'}
-			)
-		insert_list[key] = val['steps']
-		for key2 in val['steps']:
-			stepcount=val['steps'][key2]
-			user=md_User.objects.get(user_id=key)
-			stepcount, created = md_Stepcount.objects.update_or_create(
-				date=dt_date(stepcount['year'], stepcount['month'], stepcount['date']), defaults={'user': user, 'step_count': stepcount['step']})
-			print stepcount
-			print "yohoo"
+		insert_list = {}
 
-store_all_users_and_steps(db, User, Stepcount, date)
+		for key, val in userList.items():
+			user, created = self.md_User.objects.update_or_create(
+				user_id=key, defaults={'comparison': 'fd', 'context': 'sl'}
+				)
+			insert_list[key] = val['steps']
+			for key2 in val['steps']:
+				stepcount=val['steps'][key2]
+				user=self.md_User.objects.get(user_id=key)
+				stepcount, created = self.md_Stepcount.objects.update_or_create(
+					date=self.dt_date(stepcount['year'], stepcount['month'], stepcount['date']), defaults={'user': user, 'step_count': stepcount['step']})
+				print stepcount
+				print "yohoo"
 
-		#ref2 = db.reference('profile/{key}/steps')
-		#snapshot = ref2.order_by_child().limit_to_first(7).get()
-	#print stepKey
-		#stepcount, created = Stepcount.objects.update_or_create(
-			#date=date(stepVal['year'], stepVal['month'], stepVal['date']), defaults={'user_id': key}
-			#)
-	#user = User(user_id=key, comparison='all', context='semantic')
-	#user.save()
-	#print '{0} and {1}' .format(key, val['steps'])
-	#print "hehehe"
-
-#for key in insert_list:
-#	val=insert_list[key]
-#	print val
-#	for key2, stepVal in val:
-		#stepcount, created = Stepcount.objects.update_or_create(
-				#date=datetime.date(stepVal['year'], stepVal['month'], stepVal['date']), defaults={'user_id': key2}
-				#)
+ms = StepStorageManager(db, date, User, Stepcount)
+ms.store_all_users_and_steps()

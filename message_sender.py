@@ -34,6 +34,7 @@ class MessageSender:
 		streakGraphPostQuestions = self.md_Question.objects.filter(section='streak_graph_post')
 		return {
 					'type' : "graph",
+					'hasFinishedSurvey' : False,
 					'startTime' : "2018-02-08",
 					'endTime' : "2018-02-15",
 					'steps': [8201, 7500, 9020, 7502, 6702, 9520, 8640],
@@ -49,7 +50,7 @@ class MessageSender:
 	def generate_section_streak_comparison(self):
 		return {
 					'type' : "streak-comparison",
-					'target' : "all",
+					'hasFinishedSurvey' : False,
 					'streakID' : 12,
 					'recommendID' : 15,
 					'percentile' : 75,
@@ -90,6 +91,7 @@ class MessageSender:
 	def generate_section_stats_comparison(self):
 		return {
 					'type' : "stats-comparison",
+					'hasFinishedSurvey' : False,
 					'steps' : 7420,
 					'percentile' : 60,
 					'recommendPercentile' : 80,
@@ -132,6 +134,7 @@ class MessageSender:
 	def generate_section_challenge(self):
 		return {
 					'type' : "challenge",
+					'hasFinishedSurvey' : False,
 					'hasPicked' : False,
 					'pickedIdx' : 0,
 					'hasCompleted' : False,
@@ -228,7 +231,7 @@ class MessageSender:
 				'content': "hehahah",
 				'time': {'date': 2, 'month': 3, 'year': 2018},
 				'hasCompleted': False,
-				'sections': [section_graph, section_comparison, section_challenge]
+				'sections': [section_comparison, section_challenge]
 			})
 
 
