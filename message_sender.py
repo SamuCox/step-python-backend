@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, db
-from stepserver.models import Question, Option
-from datetime import date
+from stepserver.models import Question, Option, Stepcount, Streak
+from datetime import date, datetime
 
 # Fetch the service account key JSON file contents
 cred = credentials.Certificate('service-account-key.json')
@@ -13,16 +13,60 @@ firebase_admin.initialize_app(cred, {
 
 class MessageSender:
 
-	def __init__(self, fb_db, md_Question, md_Option):
+	def __init__(self, fb_db, md_Question, md_Option, md_Stepcount, md_Streak, dt_date, dt_datetime):
 		self.fb_db = fb_db
 		self.md_Question = md_Question
 		self.md_Option = md_Option
+		self.dt_date = dt_date
+		self.dt_datetime = dt_datetime
 
 	#take in uid, steps(?), date
 	#require control grp info
 	#graph: need no. of dates, content -> [need ctrl-grp to decide how many days to show & content (if streak): pull out the last/current streak; if not, show last WEEK]
 	def generate_message(self):
 		print()
+
+	#cluster id: the targeted cluster id
+	#return an array of median steps
+	def generate_comparison_all_calendar(self, streak_id, start_date, end_date):
+		date_difference = end_date - start_date
+		median_step_list = []
+		for single_date in (start_date + dt_datetime.timedelta(n) for n in range(date_difference)):
+			all_streaks = self.md_Streak.objects.filter(streak_id=streak_id, end_date=single_date)
+			count = all_streaks.count()
+			median = all_streaks.values_list(term, flat=True).order_by(term)[int(round(count/2))]
+			median_step_list.append(median)
+		return median_step_list
+
+	def generate_comparison_group_calendar(self, streak_id, group_id, start_date, end_date):
+		date_difference = end_date - start_date
+		median_step_list = []
+		for single_date in (start_date + dt_datetime.timedelta(n) for n in range(date_difference)):
+			all_streaks = self.md_Streak.objects.filter(streak_id=streak_id, user_cluster_id=group_id, end_date=single_date)
+			count = all_streaks.count()
+			median = all_streaks.values_list(term, flat=True).order_by(term)[int(round(count/2))]
+			median_step_list.append(median)
+		return median_step_list
+
+	def generate_comparison_all_cohort(self, streak_id, start_date, end_date):
+		date_difference = end_date - start_date
+		median_step_list = []
+		for single_date in (start_date + n for n in range(date_difference)):
+			all_streaks = self.md_Streak.objects.filter(streak_id=streak_id, end_cohort_day=single_date)
+			count = all_streaks.count()
+			median = all_streaks.values_list(term, flat=True).order_by(term)[int(round(count/2))]
+			median_step_list.append(median)
+		return median_step_list
+
+	def generate_comparison_group_cohort(self, streak_id, group_id, start_date, end_date):
+		date_difference = end_date - start_date
+		median_step_list = []
+		for single_date in (start_date + n for n in range(date_difference)):
+			all_streaks = self.md_Streak.objects.filter(streak_id=streak_id, user_cluster_id=group_id, end_cohort_day=single_date)
+			count = all_streaks.count()
+			median = all_streaks.values_list(term, flat=True).order_by(term)[int(round(count/2))]
+			median_step_list.append(median)
+		return median_step_list
 
 	def generate_section_streak_graph(self):
 		#user=md_User.objects.get(user_id=key)
@@ -240,5 +284,5 @@ class MessageSender:
 		#date=date.today(), defaults={'user_id': key, 'message_id': key})
 	#print stepcount
 	
-ms = MessageSender(db, Question, Option)
+ms = MessageSender(db, Question, Option, date, datetime)
 ms.send_messages()

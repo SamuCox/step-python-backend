@@ -36,6 +36,7 @@ class Option(models.Model):
 class Streak(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	streak_id = models.IntegerField(default=0)
+	user_cluster_id = models.IntegerField(default=0)
 	streak_index = models.IntegerField(default=0)
 	start_date = models.DateField()
 	end_date = models.DateField()
