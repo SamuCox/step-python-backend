@@ -137,8 +137,8 @@ class StepStorageManager:
 
 		#save streak to dbstreak_start_date
 		#todo: change to update/add
-		latest_streak = self.md_Streak(user=user, streak_id=streak_cluster_id, streak_index=current_streak_index, start_date=streak_start_date, end_date=today_date, cohort_start_date=cohort_start_date, cohort_end_date=cohort_end_date, is_active=is_today_active)
-    latest_streak.save()
+		streak, created = self.md_Streak.objects.update_or_create(
+					user=user, end_date=today_date, defaults={'streak_id': streak_cluster_id, 'streak_index': current_streak_index, 'start_date': streak_start_date, 'cohort_start_date': cohort_start_date, 'cohort_end_date': cohort_end_date, 'is_active': is_today_active})
 
 
 
