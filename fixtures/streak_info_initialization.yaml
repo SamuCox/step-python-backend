@@ -1,0 +1,267 @@
+# streak_graph pre&post
+- model: stepserver.streakinfo
+  pk: 1
+  fields: 
+    group: 1
+
+- model: stepserver.streakinfo
+  pk: 2
+  fields: 
+    group: 1
+
+- model: stepserver.streakinfo
+  pk: 3
+  fields: 
+    group: 2
+
+- model: stepserver.streakinfo
+  pk: 4
+  fields: 
+    group: 2
+
+- model: stepserver.streakinfo
+  pk: 5
+  fields: 
+    group: 3
+
+- model: stepserver.streakinfo
+  pk: 6
+  fields: 
+    group: 4
+
+- model: stepserver.streakinfo
+  pk: 7
+  fields: 
+    group: 4
+    description: description2
+    step_level: 1 #/7
+    duration: 2 #/6
+    break_length: 2 #/4
+    consistency: -2 #/-2,-1,0
+    engagement: 0
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: False
+    is_target_consistency: True #to target (extra)
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakinfo
+  pk: 8
+  fields: 
+    group: 4
+
+- model: stepserver.streakinfo
+  pk: 9
+  fields: 
+    group: 5
+
+- model: stepserver.streakinfo
+  pk: 10
+  fields: 
+    group: 5
+
+- model: stepserver.streakinfo
+  pk: 11
+  fields: 
+    group: 6
+
+- model: stepserver.streakinfo
+  pk: 12
+  fields: 
+    group: 6
+    description: description2
+    step_level: 3 #/7
+    duration: 2 #/6
+    break_length: 2 #/4
+    consistency: 0 #/-2,-1,0
+    engagement: -1
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: True
+    is_target_consistency: False #to target (extra)
+    is_target_engagement: True
+    has_bad_prediction: False
+
+- model: stepserver.streakinfo
+  pk: 13
+  fields: 
+    group: 7
+
+- model: stepserver.streakinfo
+  pk: 14
+  fields: 
+    group: 7
+
+- model: stepserver.streakinfo
+  pk: 16
+  fields: 
+    group: 7
+
+- model: stepserver.streakinfo
+  pk: 16
+  fields: 
+    group: 8
+
+- model: stepserver.streakinfo
+  pk: 17
+  fields: 
+    group: 9
+
+- model: stepserver.streakinfo
+  pk: 18
+  fields: 
+    group: 9
+
+- model: stepserver.streakinfo
+  pk: 19
+  fields: 
+    group: 9
+
+- model: stepserver.streakinfo
+  pk: 20
+  fields: 
+    group: 9
+
+- model: stepserver.streakinfo
+  pk: 21
+  fields: 
+    group: 10
+    description: description2
+    step_level: 3 #/7
+    duration: 4 #/6
+    break_length: 1 #/4
+    consistency: 0 #/-2,-1,0
+    engagement: -1
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: False
+    is_target_consistency: False #to target (extra)
+    is_target_engagement: True
+    has_bad_prediction: True
+
+- model: stepserver.streakinfo
+  pk: 22
+  fields: 
+    group: 10
+    description: description2
+    step_level: 3 #/7
+    duration: 4 #/6
+    break_length: 3 #/4
+    consistency: -1 #/-2,-1,0
+    engagement: 0
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: True
+    is_target_consistency: True #to target (extra)
+    is_target_engagement: False
+    has_bad_prediction: False
+
+- model: stepserver.streakinfo
+  pk: 23
+  fields: 
+    group: 10
+
+- model: stepserver.streakinfo
+  pk: 24
+  fields: 
+    group: 10
+
+- model: stepserver.streakinfo
+  pk: 25
+  fields: 
+    group: 11
+    description: description2
+    step_level: 2 #/7
+    duration: 4 #/6
+    break_length: 1 #/4
+    consistency: -1 #/-2,-1,0
+    engagement: 0
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: False
+    is_target_consistency: True #to target (extra)
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakinfo
+  pk: 26
+  fields: 
+    group: 11
+
+- model: stepserver.streakinfo
+  pk: 27
+  fields: 
+    group: 12
+
+- model: stepserver.streakinfo
+  pk: 28
+  fields: 
+    group: 13
+    description: description2
+    step_level: 3 #/7
+    duration: 5 #/6
+    break_length: 2 #/4
+    consistency: -2 #/-2,-1,0
+    engagement: 0
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: True
+    is_target_consistency: True #to target (extra)
+    is_target_engagement: False
+    has_bad_prediction: False
+
+- model: stepserver.streakinfo
+  pk: 29
+  fields: 
+    group: 13
+
+- model: stepserver.streakinfo
+  pk: 30
+  fields: 
+    group: 13
+
+- model: stepserver.streakinfo
+  pk: 31
+  fields: 
+    group: 14
+
+- model: stepserver.streakinfo
+  pk: 32
+  fields: 
+    group: 14
+
+- model: stepserver.streakinfo
+  pk: 33
+  fields: 
+    group: 14
+
+- model: stepserver.streakinfo
+  pk: 34
+  fields: 
+    group: 15
+
+- model: stepserver.streakinfo
+  pk: 35
+  fields: 
+    group: 16
+
+- model: stepserver.streakinfo
+  pk: 36
+  fields: 
+    group: 16
+
+- model: stepserver.streakinfo
+  pk: 37
+  fields: 
+    group: 16
+
+- model: stepserver.streakinfo
+  pk: 38
+  fields: 
+    group: 17
+
+- model: stepserver.streakinfo
+  pk: 39
+  fields: 
+    group: 18

@@ -1,0 +1,360 @@
+# streak_graph pre&post
+- model: stepserver.streakgroupinfo
+  pk: 1
+  fields: 
+    name: Low Effort 1-day Try
+    color: ff0000
+    description: You are active for only one day, and it seems that you do not walk much.
+    step_level: 1 #/7
+    duration: 1 #/6
+    break_length: 2 #/4
+    consistency: 0 #/-2,-1,0
+    engagement: 0
+    recommendation_id_ongoing: 4
+    recommendation_id_upcoming: 5
+    is_target_step_level: True
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 2
+  fields:
+    name: Moderate Effort 1-day Try
+    color: ff0000
+    description: Description
+    step_level: 3
+    duration: 1
+    break_length: 2
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 5
+    recommendation_id_upcoming: 5
+    is_target_step_level: False
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 3
+  fields:
+    name: High Effort 1-day Try
+    color: ff0000
+    description: Description
+    step_level: 7
+    duration: 1
+    break_length: 2
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 7
+    recommendation_id_upcoming: 7
+    is_target_step_level: False
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 4
+  fields:
+    name: Low Effort Short
+    color: 0000ff
+    description: Description
+    step_level: 1
+    duration: 2
+    break_length: 2
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 9
+    recommendation_id_upcoming: 5
+    is_target_step_level: True
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 5
+  fields:
+    name: Mod Effort Short
+    color: 0000ff
+    description: Description
+    step_level: 2
+    duration: 2
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 10
+    recommendation_id_upcoming: 5
+    is_target_step_level: True
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 6
+  fields:
+    name: Mod High Effort Short
+    color: 0000ff
+    description: Description
+    step_level: 3
+    duration: 2
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 13
+    recommendation_id_upcoming: 5
+    is_target_step_level: True
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: False
+
+- model: stepserver.streakgroupinfo
+  pk: 7
+  fields:
+    name: High Effort Short
+    color: 0000ff
+    description: Description
+    step_level: 6
+    duration: 2
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 16
+    recommendation_id_upcoming: 7
+    is_target_step_level: False
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 8
+  fields:
+    name: Low Effort Mod Length
+    color: 00ff00
+    description: Description
+    step_level: 1
+    duration: 3
+    break_length: 2
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 9
+    recommendation_id_upcoming: 9
+    is_target_step_level: True
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 9
+  fields:
+    name: Mod Effort Mod Length
+    color: 00ff00
+    description: Description
+    step_level: 3
+    duration: 4
+    break_length: 1
+    consistency: -1
+    engagement: 0
+    recommendation_id_ongoing: 10
+    recommendation_id_upcoming: 9
+    is_target_step_level: True
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: True
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 10
+  fields:
+    name: High Effort Mod Length
+    color: 00ff00
+    description: Description
+    step_level: 4
+    duration: 4
+    break_length: 1
+    consistency: -1
+    engagement: 0
+    recommendation_id_ongoing: 11
+    recommendation_id_upcoming: 11
+    is_target_step_level: True
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: True
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 11
+  fields:
+    name: High Effort Mod Length
+    color: 00ff00
+    description: Description
+    step_level: 4
+    duration: 4
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 14
+    recommendation_id_upcoming: 11
+    is_target_step_level: True
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 12
+  fields:
+    name: Mod High Effort Mod Length Super Long Break
+    color: 00ff00
+    description: Description
+    step_level: 3
+    duration: 4
+    break_length: 4
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 14
+    recommendation_id_upcoming: 11
+    is_target_step_level: True
+    is_target_duration: False
+    is_target_break: True
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: False
+
+- model: stepserver.streakgroupinfo
+  pk: 13
+  fields:
+    name: High Effort Mod Long
+    color: 00ff00
+    description: Description
+    step_level: 4
+    duration: 5
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 14
+    recommendation_id_upcoming: 13
+    is_target_step_level: True
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: False
+
+- model: stepserver.streakgroupinfo
+  pk: 14
+  fields:
+    name: Incentive High Effort Super Long
+    color: 00ff00
+    description: Description
+    step_level: 6
+    duration: 6
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 14
+    recommendation_id_upcoming: 14
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: False
+
+- model: stepserver.streakgroupinfo
+  pk: 15
+  fields:
+    name: Incentive High Effort Mod Length
+    color: 00ff00
+    description: Description
+    step_level: 5
+    duration: 3
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 14
+    recommendation_id_upcoming: 15
+    is_target_step_level: False
+    is_target_duration: True
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: False
+
+- model: stepserver.streakgroupinfo
+  pk: 16
+  fields:
+    name: Incentive High Effort Mod Length
+    color: 00ff00
+    description: Description
+    step_level: 6
+    duration: 5
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 16
+    recommendation_id_upcoming: 16
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
+
+- model: stepserver.streakgroupinfo
+  pk: 17
+  fields:
+    name: Self-driven High
+    color: 00ff00
+    description: Keep on going!
+    step_level: 7
+    duration: 5
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 17
+    recommendation_id_upcoming: 17
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: False
+
+- model: stepserver.streakgroupinfo
+  pk: 18
+  fields:
+    name: Incentive High Effort Mod Length
+    color: 00ff00
+    description: Description
+    step_level: 6
+    duration: 5
+    break_length: 1
+    consistency: 0
+    engagement: 0
+    recommendation_id_ongoing: 18
+    recommendation_id_upcoming: 18
+    is_target_step_level: False
+    is_target_duration: False
+    is_target_break: False
+    is_target_consistency: False
+    is_target_engagement: False
+    has_bad_prediction: True
