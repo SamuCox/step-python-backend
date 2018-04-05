@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, db
-from stepserver.models import User, Stepcount, Streak, Max
+from django.db.models import Max
+from stepserver.models import User, Stepcount, Streak
 from datetime import date, datetime
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -17,31 +18,28 @@ firebase_admin.initialize_app(cred, {
 # print ref.get()
 class StepStorageManager:
 
-	def __init__(self, fb_db, dt_date, dt_datetime, md_User, md_Stepcount, md_Streak):
+	def __init__(self, fb_db, dt_date, dt_datetime, md_User, md_Stepcount, md_Streak, ex_ObjectDoesNotExist):
 		self.fb_db = fb_db
 		self.md_User = md_User
 		self.md_Stepcount = md_Stepcount
 		self.md_Streak = md_Streak
 		self.dt_date = dt_date
 		self.dt_datetime = dt_datetime
+		self.ex_ObjectDoesNotExist = ex_ObjectDoesNotExist
 
 	def store_all_users_and_steps(self):
-		# store_latest_steps
 		ref = self.fb_db.reference('profile')
 		userList = ref.get()
+		user = None
 
 		insert_list = {}
 
 		for key, val in userList.items():
+			print("try this!")
 			#need to check whether the user is new or not. If yes, give him/her a start date.
-			try:
-    		user = self.md_User.objects.get(user_id=key)
-			except ObjectDoesNotExist:
-				current_date = self.dt_date.today()
-    		user = self.md_User(user_id=key, comparison='all', context='yes', start_date=current_date)
-    		today_stepcount.save()
-
+			self.check_and_add_user(key)
 			insert_list[key] = val['steps']
+
 			for key2 in val['steps']:
 				stepcount=val['steps'][key2]
 				user=self.md_User.objects.get(user_id=key)
@@ -52,11 +50,22 @@ class StepStorageManager:
 			# make up a 0 record if the user does not record his/her data today
 			current_date = self.dt_date.today()
 			user = self.md_User.objects.get(user_id=key)
-			try:
-    		today_stepcount = self.md_Stepcount.objects.get(user=user, date=current_date)
-			except ObjectDoesNotExist:
-    		today_stepcount = self.md_Stepcount(user=user, date=current_date, step_count=0)
-    		today_stepcount.save()
+			self.check_and_add_step(user, current_date)
+
+	def check_and_add_user(self, user_id):
+		try:
+			user = self.md_User.objects.get(user_id=user_id)
+		except self.ex_ObjectDoesNotExist:
+			current_date = self.dt_date.today()
+			user = self.md_User(user_id=user_id, comparison='all', context='yes', start_date=current_date)
+			user.save()
+
+	def check_and_add_step(self, user, current_date):
+		try:
+			today_stepcount = self.md_Stepcount.objects.get(user=user, date=current_date)
+		except self.ex_ObjectDoesNotExist:
+			today_stepcount = self.md_Stepcount(user=user, date=current_date, step_count=0)
+			today_stepcount.save()
 
 	def get_streak_cluster_id_temp(self):
 		return 4
@@ -87,11 +96,11 @@ class StepStorageManager:
 			#check whether this is the start of the first streak
 			try:
 				streak = self.md_Streak.objects.get(user=user)
-			except ObjectDoesNotExist:
+			except self.ex_ObjectDoesNotExist:
 				is_first_streak_start = True
 		
 		streak_list = []
-		while !has_encountered_inactive && current_date >= start_date:
+		while (not has_encountered_inactive) and (current_date >= start_date):
 			try:
 				step_count = self.md_Stepcount.objects.get(user=user, date=current_date)
 				count = step_count.step_count
@@ -103,13 +112,12 @@ class StepStorageManager:
 					# if already encountered active and then encounter inactive now, end the streak
 					if has_encountered_active:
 						has_encountered_inactive = True
-			except ObjectDoesNotExist:
+			except self.ex_ObjectDoesNotExist:
 				makeup_stepcount = self.md_Stepcount(user=user, date=current_date, step_count=0)
     		makeup_stepcount.save()
-				if has_encountered_active:
-					# mark as end
-					has_encountered_inactive = True
-				else:
+    		if has_encountered_active:
+    			has_encountered_inactive = True
+    		else:
 					current_date = current_date - self.dt_datetime.timedelta(1)
 					streak_list.append(0)
 
@@ -121,7 +129,7 @@ class StepStorageManager:
 		if streak_list.count == 1:
 			is_streak_start = True
 		
-		if !is_first_streak_start:
+		if not is_first_streak_start:
 			latest_streak_record = md_Streak.objects.all().aggregate(Max('cohort_end_date'))['cohort_end_date__max']
 			prev_cluster_id = md_Streak.objects.get(cohort_end_date = latest_streak_record).streak_id
 
@@ -143,5 +151,5 @@ class StepStorageManager:
 
 
 
-ms = StepStorageManager(db, date, datetime, User, Stepcount, Streak)
+ms = StepStorageManager(db, date, datetime, User, Stepcount, Streak, ObjectDoesNotExist)
 ms.store_all_users_and_steps()
