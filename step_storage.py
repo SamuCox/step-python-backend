@@ -46,7 +46,7 @@ class StepStorageManager:
 				stepcount=val['steps'][key2]
 				user=self.md_User.objects.get(user_id=key)
 				stepcount, created = self.md_Stepcount.objects.update_or_create(
-					date=self.dt_date(stepcount['year'], stepcount['month'], stepcount['date']), defaults={'user': user, 'step_count': stepcount['step']})
+					date=self.dt_date(stepcount['year'], stepcount['month'], stepcount['date']), user=user, defaults={'step_count': stepcount['step']})
 				print stepcount
 				print "yohoo"
 			# make up a 0 record if the user does not record his/her data today
@@ -105,6 +105,7 @@ class StepStorageManager:
 		
 		streak_list = []
 		while (not has_encountered_inactive) and (current_date >= start_date):
+			print(current_date)
 			try:
 				step_count = self.md_Stepcount.objects.get(user=user, date=current_date)
 				count = step_count.step_count
@@ -140,7 +141,7 @@ class StepStorageManager:
 		if has_encountered_active:
 			if not is_first_streak_start:
 				latest_streak_record = self.md_Streak.objects.all().aggregate(self.db_Max('cohort_end_date'))['cohort_end_date__max']
-				prev_cluster_id = self.md_Streak.objects.get(cohort_end_date = latest_streak_record).streak_id
+				prev_cluster_id = self.md_Streak.objects.get(user=user, cohort_end_date = latest_streak_record).streak_id
 
 			if is_first_streak_start:
 				current_streak_index = 0
@@ -153,7 +154,6 @@ class StepStorageManager:
 			cohort_end_date = (today_date - start_date).days
 
 			#save streak to dbstreak_start_date
-			#todo: change to update/add
 			streak, created = self.md_Streak.objects.update_or_create(
 						user=user, end_date=today_date, defaults={'streak_id': streak_cluster_id, 'streak_index': current_streak_index, 'start_date': streak_start_date, 'cohort_start_date': cohort_start_date, 'cohort_end_date': cohort_end_date, 'is_active': is_today_active})
 
