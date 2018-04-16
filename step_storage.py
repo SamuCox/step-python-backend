@@ -53,7 +53,11 @@ class StepStorageManager:
 			current_date = self.dt_date.today()
 			user = self.md_User.objects.get(user_id=key)
 			self.check_and_add_step(user, current_date)
-			self.store_current_cluster(user)
+			self.store_current_cluster(user, current_date - self.dt_datetime.timedelta(1))
+			self.store_current_cluster(user, current_date)
+
+	#def store_all_streaks(self):
+
 
 	def check_and_add_user(self, user_id):
 		try:
@@ -79,7 +83,7 @@ class StepStorageManager:
 	def get_user_cluster_id(self):
 		return 4
 
-	def store_current_cluster(self, user):
+	def store_current_cluster(self, user, current_date):
 		start_date = user.start_date
 		# take out the current streak cluster
 		has_encountered_active = False
@@ -87,8 +91,9 @@ class StepStorageManager:
 		is_today_active = False
 		is_first_streak_start = False
 		is_streak_start = False
-		current_date = self.dt_date.today()
+		#current_date = self.dt_date.today()
 		today_date = self.dt_date.today()
+		current_date_static = current_date
 		step_count = self.md_Stepcount.objects.get(user=user, date=current_date)
 
 		current_streak_index = 0
@@ -102,6 +107,8 @@ class StepStorageManager:
 				streak = self.md_Streak.objects.get(user=user)
 			except self.ex_ObjectDoesNotExist:
 				is_first_streak_start = True
+			except:
+				print("nothing")
 		
 		streak_list = []
 		while (not has_encountered_inactive) and (current_date >= start_date):
@@ -140,7 +147,7 @@ class StepStorageManager:
 		
 		if has_encountered_active:
 			if not is_first_streak_start:
-				latest_streak_record = self.md_Streak.objects.all().aggregate(self.db_Max('cohort_end_date'))['cohort_end_date__max']
+				latest_streak_record = self.md_Streak.objects.filter(user=user).aggregate(self.db_Max('cohort_end_date'))['cohort_end_date__max']
 				prev_cluster_id = self.md_Streak.objects.get(user=user, cohort_end_date = latest_streak_record).streak_id
 
 			if is_first_streak_start:
@@ -151,11 +158,11 @@ class StepStorageManager:
 				current_streak_index = prev_cluster_id
 
 			cohort_start_date = (streak_start_date - start_date).days
-			cohort_end_date = (today_date - start_date).days
+			cohort_end_date = (current_date_static - start_date).days
 
 			#save streak to dbstreak_start_date
 			streak, created = self.md_Streak.objects.update_or_create(
-						user=user, end_date=today_date, defaults={'streak_id': streak_cluster_id, 'streak_index': current_streak_index, 'start_date': streak_start_date, 'cohort_start_date': cohort_start_date, 'cohort_end_date': cohort_end_date, 'is_active': is_today_active})
+						user=user, end_date=current_date_static, defaults={'streak_id': streak_cluster_id, 'streak_index': current_streak_index, 'start_date': streak_start_date, 'cohort_start_date': cohort_start_date, 'cohort_end_date': cohort_end_date, 'is_active': is_today_active})
 
 
 

@@ -7,7 +7,7 @@ from django.utils.timezone import localtime, now
 
 # Create your models here.
 
-# user id and the conditions (comparison: all/group, context: semantic/nonsemantic)
+# user id and the conditions (comparison: all/group/none, context: semantic/nonsemantic)
 class User(models.Model):
 	user_id = models.CharField(max_length=200)
 	comparison = models.CharField(max_length=100)
@@ -37,29 +37,12 @@ class Option(models.Model):
 
 class Streak(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	streak_id = models.IntegerField(default=0)
-	user_cluster_id = models.IntegerField(default=0)
 	streak_index = models.IntegerField(default=0)
-	start_date = models.DateField(localtime(now()).date())
-	end_date = models.DateField(localtime(now()).date())
-	cohort_start_date = models.IntegerField(default=0)
-	cohort_end_date = models.IntegerField(default=0)
-	is_active = models.BooleanField(default=False)
-	median = models.IntegerField(default=0)
-	n_active_day = models.IntegerField(default=0)
-	n_inactive_day = models.IntegerField(default=0)
-	p_500_5k = models.FloatField(default=0)
-	p_5k_10k = models.FloatField(default=0)
-	p_10k_105k = models.FloatField(default=0)
-	p_105k = models.FloatField(default=0)
-	slope = models.FloatField(default=0)
-	cov = models.FloatField(default=0)
-	autocorrelation = models.FloatField(default=0)
-	trend = models.FloatField(default=0)
-	skewness = models.FloatField(default=0)
-	kurtosis = models.FloatField(default=0)
-	days_since_last_prize = models.IntegerField(default=0)
-	points_till_next_prize = models.IntegerField(default=0)
+	streak_cluster_id = models.IntegerField(default=0)
+	user_cluster_id = models.IntegerField(default=0)
+	calendar_date = models.DateField(default=datetime.now, blank=True)
+	cohort_day = models.IntegerField(default=0)
+	step_count = models.IntegerField(default=0)
 
 class StreakGroupInfo(models.Model):
 	name = models.CharField(max_length=200)
