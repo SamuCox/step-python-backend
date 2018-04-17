@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, db
 from django.db.models import Q
-from stepserver.models import Question, Option, Stepcount, Streak
+from stepserver.models import Question, Option, Stepcount, Streak, Streakinfo, StreakGroupInfo, Userclusterinfo
 from datetime import date
 import datetime
 import math
@@ -122,19 +122,19 @@ class MessageSender:
 		generated_survey = self.generate_survey("streak_comparison")
 		
 		streak_cluster_id = streak.streak_cluster_id
-		streak_info = self.md_streakinfo.filter(id=streak_id)
+		streak_info = self.md_Streakinfo.filter(id=streak_id)
 		streak_group_info = streak_info.group
 		streak_group_name = streak_group_info.name
 		streak_group_description = streak_group_info.description
 		streak_extra_description = streak_info.description
 
 		recommend_streak_group_id = streak_group_info.recommendation_id_ongoing #to check status!!
-		recommend_streak_group_info = self.md_streakgroupinfo.filter(id=recommend_streak_group_id)
+		recommend_streak_group_info = self.md_Streakgroupinfo.filter(id=recommend_streak_group_id)
 		recommend_streak_group_name = recommend_streak_group_info.name
 		recommend_streak_group_description = recommend_streak_group_info.description
 
 		user_cluster_id = streak.user_cluster_id
-		user_cluster_info = self.md_userclusterinfo.filter(id=user_cluster_id) #yet to do in db
+		user_cluster_info = self.md_Userclusterinfo.filter(id=user_cluster_id) #yet to do in db
 		user_cluster_group_info = user_cluster_info.group
 		user_cluster_group_name = user_cluster_group_info.name
 
@@ -205,7 +205,7 @@ class MessageSender:
 		generated_survey = self.generate_survey("stats_comparison")
 
 		user_cluster_id = streak.user_cluster_id
-		user_cluster_info = self.md_userclusterinfo.filter(id=user_cluster_id) #yet to do in db
+		user_cluster_info = self.md_Userclusterinfo.filter(id=user_cluster_id) #yet to do in db
 		user_cluster_group_info = user_cluster_info.group
 		user_cluster_group_name = user_cluster_group_info.name
 
@@ -357,10 +357,11 @@ class MessageSender:
 		for key, val in userList.items():
 			msgref = self.fb_db.reference('profile/'+key+'/messages')
 			print("inside a user")
-			section_graph = self.generate_section_graph()
+			#section_graph = self.generate_section_graph()
+			streak = self.md_Streak.objects.get(user_id="1000242", date=self.dt_date(2015,11,21)) #122
 			section_comparison = self.generate_section_comparison()
 			section_challenge = self.generate_section_challenge()
-			section_prev_challenge = self.generate_section_prev_challenge()
+			#section_prev_challenge = self.generate_section_prev_challenge()
 			
 			new_msg_ref = msgref.push()
 			new_msg_ref.set({
@@ -369,6 +370,7 @@ class MessageSender:
 				'hasCompleted': False,
 				'sections': [section_comparison, section_challenge]
 			})
+
 
 
 	#generate msg and store it to firebase
@@ -380,6 +382,6 @@ ms = MessageSender(db, Question, Option, Stepcount, Streak, date, datetime, math
 ms.send_messages()
 
 start_date = date.today()
-print(ms.generate_comparison_all_calendar(4, start_date-datetime.timedelta(1), start_date))
+#print(ms.generate_comparison_all_calendar(4, start_date-datetime.timedelta(1), start_date))
 
 

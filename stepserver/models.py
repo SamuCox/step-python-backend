@@ -77,6 +77,12 @@ class StreakInfo(models.Model):
 	is_target_engagement = models.BooleanField(default=False)
 	has_bad_prediction = models.BooleanField(default=False)
 
+class UserClusterGroupInfo(models.Model):
+	name = models.CharField(max_length=200)
+
+class UserClusterInfo(models.Model):
+	group = models.ForeignKey(UserClusterGroupInfo, on_delete=models.CASCADE)
+
 # how to describe attributes / recommend improvement of attributes
 class StreakAttributeDescription(models.Model):
 	attribute = models.CharField(max_length=100)
