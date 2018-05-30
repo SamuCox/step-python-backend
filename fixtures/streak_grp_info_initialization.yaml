@@ -4,11 +4,11 @@
   fields: 
     name: Low Effort 1-day Try
     color: ff0000
-    description: You are active for only one day, and it seems that you do not walk much.
+    description: you are active for only one day, and it seems that you do not walk much.
     step_level: 1 #/7
     duration: 1 #/6
     break_length: 2 #/4
-    consistency: 0 #/-2,-1,0
+    consistency: 1 #/-2,-1,0
     engagement: 0
     recommendation_id_ongoing: 4
     recommendation_id_upcoming: 5
@@ -24,11 +24,11 @@
   fields:
     name: Moderate Effort 1-day Try
     color: ff0000
-    description: Description
+    description: you are active for only one day, but you did make some efforts! Keep on going.
     step_level: 3
     duration: 1
     break_length: 2
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 5
     recommendation_id_upcoming: 5
@@ -44,11 +44,11 @@
   fields:
     name: High Effort 1-day Try
     color: ff0000
-    description: Description
+    description: you walked an amazing distance! But since you are active for only one day, you can definitely keep the incentive for a longer time.
     step_level: 7
     duration: 1
     break_length: 2
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 7
     recommendation_id_upcoming: 7
@@ -64,11 +64,11 @@
   fields:
     name: Low Effort Short
     color: 0000ff
-    description: Description
+    description: you did not walk much over a short period of time, but nice try!
     step_level: 1
     duration: 2
     break_length: 2
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 9
     recommendation_id_upcoming: 5
@@ -84,11 +84,11 @@
   fields:
     name: Mod Effort Short
     color: 0000ff
-    description: Description
+    description: you walked some distance much over a short period of time. 
     step_level: 2
     duration: 2
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 10
     recommendation_id_upcoming: 5
@@ -104,11 +104,11 @@
   fields:
     name: Mod High Effort Short
     color: 0000ff
-    description: Description
+    description: you walked some great distance much over a short period of time. 
     step_level: 3
     duration: 2
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 13
     recommendation_id_upcoming: 5
@@ -124,11 +124,11 @@
   fields:
     name: High Effort Short
     color: 0000ff
-    description: Description
+    description: you have definitely rocked the step count during the past few days.
     step_level: 6
     duration: 2
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 16
     recommendation_id_upcoming: 7
@@ -144,11 +144,11 @@
   fields:
     name: Low Effort Mod Length
     color: 00ff00
-    description: Description
+    description: you kept a relatively low step level over the past period of time.
     step_level: 1
     duration: 3
     break_length: 2
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 9
     recommendation_id_upcoming: 9
@@ -164,11 +164,11 @@
   fields:
     name: Mod Effort Mod Length
     color: 00ff00
-    description: Description
+    description: you kept a moderate step level over the past period of time.
     step_level: 3
     duration: 4
     break_length: 1
-    consistency: -1
+    consistency: 0
     engagement: 0
     recommendation_id_ongoing: 10
     recommendation_id_upcoming: 9
@@ -184,11 +184,11 @@
   fields:
     name: High Effort Mod Length
     color: 00ff00
-    description: Description
+    description: you kept a relatively high step level over the past period of time, although not very consistent.
     step_level: 4
     duration: 4
     break_length: 1
-    consistency: -1
+    consistency: 0
     engagement: 0
     recommendation_id_ongoing: 11
     recommendation_id_upcoming: 11
@@ -204,11 +204,11 @@
   fields:
     name: High Effort Mod Length
     color: 00ff00
-    description: Description
+    description: you kept a relatively high step level over the past period of time.
     step_level: 4
     duration: 4
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 14
     recommendation_id_upcoming: 11
@@ -224,11 +224,11 @@
   fields:
     name: Mod High Effort Mod Length Super Long Break
     color: 00ff00
-    description: Description
+    description: you walked a moderate high step level for a considerable duration. But you have been having a really long break!
     step_level: 3
     duration: 4
     break_length: 4
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 14
     recommendation_id_upcoming: 11
@@ -244,11 +244,11 @@
   fields:
     name: High Effort Mod Long
     color: 00ff00
-    description: Description
+    description: you have been walking with high efforts for a moderate period of time.
     step_level: 4
     duration: 5
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 14
     recommendation_id_upcoming: 13
@@ -264,11 +264,11 @@
   fields:
     name: Incentive High Effort Super Long
     color: 00ff00
-    description: Description
+    description: you have been walking with incentively high efforts for a really long period of time!
     step_level: 6
     duration: 6
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 14
     recommendation_id_upcoming: 14
@@ -284,11 +284,11 @@
   fields:
     name: Incentive High Effort Mod Length
     color: 00ff00
-    description: Description
+    description: you have been walking with incentively high efforts for a moderate period of time. Keep on going!
     step_level: 5
     duration: 3
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 14
     recommendation_id_upcoming: 15
@@ -304,11 +304,11 @@
   fields:
     name: Incentive High Effort Mod Length
     color: 00ff00
-    description: Description
+    description: you have been walking with high efforts for a moderate period of time.
     step_level: 6
     duration: 5
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 16
     recommendation_id_upcoming: 16
@@ -324,11 +324,11 @@
   fields:
     name: Self-driven High
     color: 00ff00
-    description: Keep on going!
+    description: you are the kind of self-driven walker with amazing step level. Keep on going!
     step_level: 7
     duration: 5
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 17
     recommendation_id_upcoming: 17
@@ -344,11 +344,11 @@
   fields:
     name: Incentive High Effort Mod Length
     color: 00ff00
-    description: Description
+    description: you have been walking with incentively high efforts for a moderate period of time.
     step_level: 6
     duration: 5
     break_length: 1
-    consistency: 0
+    consistency: 1
     engagement: 0
     recommendation_id_ongoing: 18
     recommendation_id_upcoming: 18

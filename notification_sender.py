@@ -12,8 +12,8 @@ def sendNotification(fb_messaging):
 	# See documentation on defining a message payload.
 	message = fb_messaging.Message(
 		notification=fb_messaging.Notification(
-			title="pythonYooooo",
-			body="Notification body"
+			title="You've walked a lot today!",
+			body="Check out your daily walking report and fun challenges for tomorrow."
 			)  ,
 		topic=topic,
 		)

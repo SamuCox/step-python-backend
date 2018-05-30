@@ -1,0 +1,260 @@
+- model: stepserver.challenge
+  pk: 1
+  fields: 
+    content: Circle your room or office when you need inspiration.
+    require_walk: True
+    difficulty: 2
+    fun: 3
+    category: green
+    is_specific: False
+
+
+- model: stepserver.challenge
+  pk: 2
+  fields: 
+    content: When walking, think about what motivates you to exercise.
+    require_walk: True
+    difficulty: 2
+    fun: 3
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 3
+  fields: 
+    content: Find a park nearby and spend some time wandering.
+    require_walk: True
+    difficulty: 3
+    fun: 4
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 4
+  fields: 
+    content: Try a new location to jog / walk in.
+    require_walk: True
+    difficulty: 3
+    fun: 3
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 5
+  fields: 
+    content: Go for a 6-song walk.
+    require_walk: True
+    difficulty: 2
+    fun: 5
+    category: green
+    is_specific: True
+
+- model: stepserver.challenge
+  pk: 6
+  fields: 
+    content: Stay active for 30 min when watching TV.
+    require_walk: True
+    difficulty: 3
+    fun: 4
+    category: green
+    is_specific: True
+
+- model: stepserver.challenge
+  pk: 7
+  fields: 
+    content: Try listening to an audiobook when walking.
+    require_walk: True
+    difficulty: 3
+    fun: 5
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 8
+  fields: 
+    content: Walk a different route to avoid monotony.
+    require_walk: True
+    difficulty: 3
+    fun: 4
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 9
+  fields: 
+    content: Share your exercise progress and step count on social media.
+    require_walk: True
+    difficulty: 3
+    fun: 4
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 10
+  fields: 
+    content: Set alarms and try not to stay sedantary for more than 45 minutes today. You may try to walk around the floor.
+    require_walk: True
+    difficulty: 4
+    fun: 3
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 11
+  fields: 
+    content: Get up 20 min earlier and walk one station.
+    require_walk: True
+    difficulty: 4
+    fun: 2
+    category: green
+    is_specific: True
+
+- model: stepserver.challenge
+  pk: 12
+  fields: 
+    content: Wander on streets that you are not familiar with for a restaurant.
+    require_walk: True
+    difficulty: 4
+    fun: 5
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 13
+  fields: 
+    content: Park your car further to add up the step count.
+    require_walk: True
+    difficulty: 4
+    fun: 3
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 14
+  fields: 
+    content: Stay mindful when you are walking today.
+    require_walk: True
+    difficulty: 2
+    fun: 2
+    category: blue
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 15
+  fields: 
+    content: Sneak around the room when using your phone.
+    require_walk: True
+    difficulty: 2
+    fun: 3
+    category: blue
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 14
+  fields: 
+    content: Alight from the bus 1 stop earlier and take a walk.
+    require_walk: True
+    difficulty: 3
+    fun: 3
+    category: green
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 15
+  fields: 
+    content: Take stairs in stead of lift for at least 5 floors.
+    require_walk: True
+    difficulty: 2
+    fun: 2
+    category: blue
+    is_specific: True
+
+- model: stepserver.challenge
+  pk: 16
+  fields: 
+    content: Walk 1000 steps more when you are coming back home.
+    require_walk: True
+    difficulty: 3
+    fun: 3
+    category: blue
+    is_specific: True
+
+- model: stepserver.challenge
+  pk: 17
+  fields: 
+    content: Try to walk 1500 steps more than yesterday.
+    require_walk: True
+    difficulty: 3
+    fun: 3
+    category: blue
+    is_specific: True
+
+- model: stepserver.challenge
+  pk: 18
+  fields: 
+    content: Spend 30 more minutes on walking before getting back home today.
+    require_walk: True
+    difficulty: 3
+    fun: 2
+    category: blue
+    is_specific: True
+
+- model: stepserver.challenge
+  pk: 19
+  fields: 
+    content: Try not to call delivery and walk to the restaurant or supermarket today.
+    require_walk: True
+    difficulty: 2
+    fun: 3
+    category: blue
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 20
+  fields: 
+    content: Go for a 20 min walk during lunch break.
+    require_walk: True
+    difficulty: 3
+    fun: 3
+    category: blue
+    is_specific: True
+
+- model: stepserver.challenge
+  pk: 21
+  fields: 
+    content: Take someone with you for a walk.
+    require_walk: True
+    difficulty: 2
+    fun: 5
+    category: blue
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 22
+  fields: 
+    content: List things you want to buy and walk to the nearby supermarket for them.
+    require_walk: True
+    difficulty: 3
+    fun: 4
+    category: blue
+    is_specific: False
+
+- model: stepserver.challenge
+  pk: 23
+  fields: 
+    content: Find a cool place for a 20-min walk.
+    require_walk: True
+    difficulty: 3
+    fun: 4
+    category: blue
+    is_specific: True
+
+- model: stepserver.challenge
+  pk: 24
+  fields: 
+    content: Instead of emailing, walk to your co-worker's desk.
+    require_walk: True
+    difficulty: 2
+    fun: 2
+    category: green
+    is_specific: False

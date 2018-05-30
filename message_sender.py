@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, db
 from django.db.models import Q
-from stepserver.models import Question, Option, Stepcount, Streak, StreakInfo, StreakGroupInfo, UserClusterInfo, UserClusterGroupInfo
+from stepserver.models import Question, Option, Stepcount, Streak, StreakInfo, StreakGroupInfo, UserClusterInfo, UserClusterGroupInfo, User
 from datetime import date
 import datetime
 import math
@@ -16,9 +16,10 @@ firebase_admin.initialize_app(cred, {
 
 class MessageSender:
 
-	def __init__(self, fb_db, dj_Q, md_Question, md_Option, md_Stepcount, md_Streak, md_Streakinfo, md_Streakgroupinfo, md_Userclusterinfo, md_Userclustergroupinfo, dt_date, dt_datetime, mt_math):
+	def __init__(self, fb_db, dj_Q, md_Question, md_Option, md_Stepcount, md_Streak, md_Streakinfo, md_Streakgroupinfo, md_Userclusterinfo, md_Userclustergroupinfo, md_User, dt_date, dt_datetime, mt_math):
 		self.fb_db = fb_db
 		self.dj_Q = dj_Q
+		self.md_User = md_User
 		self.md_Question = md_Question
 		self.md_Option = md_Option
 		self.md_Stepcount = md_Stepcount
@@ -60,13 +61,15 @@ class MessageSender:
 			q_user = q_streak | self.dj_Q(user_cluster_id=user_cluster.id)
 
 		while single_date <= end_date:
+			print("target is: " + target)
+			print("awareness is: " + awareness)
 			if target == "group" and awareness == "streak":
 				all_streaks = self.md_Streak.objects.filter(q_streak, q_user, calendar_date=single_date).order_by('step_count')
 			elif target == "group" and awareness != "streak":
 				all_streaks = self.md_Streak.objects.filter(q_user, calendar_date=single_date).order_by('step_count')
 			elif target == "all" and awareness == "streak":
 				all_streaks = self.md_Streak.objects.filter(q_streak, calendar_date=single_date).order_by('step_count')
-			else:
+			elif target == "all" and awareness != "streak":
 				all_streaks = self.md_Streak.objects.filter(calendar_date=single_date).order_by('step_count')
 
 			count = all_streaks.count()
@@ -136,6 +139,7 @@ class MessageSender:
 				for option in options:
 					generated_options.append(option.content)
 				generated_survey.append({'index': 0, 'type': question.category, 'question': question.content, 'isAnswered': False, 'answer':"", 'options':generated_options})
+		return generated_survey
 
 	def fetch_all_steps(self, user, start_date, end_date):
 		day = self.dt_datetime.timedelta(days=1)
@@ -152,7 +156,9 @@ class MessageSender:
 		single_date = start_date
 		date_list = []
 		while single_date <= end_date:
-			date_list.append(single_date.isoformat())
+			single_month = single_date.month
+			single_day = single_date.day
+			date_list.append(str(single_month) + "/" + str(single_day))
 			single_date = single_date + day
 		return date_list
 
@@ -199,6 +205,9 @@ class MessageSender:
 					'comparisonTaraget' : comparison_target, #or all
 					'streakName' : streak_group_name,
 					'streakDescription' : streak_group_description + streak_extra_description,
+					'streakDuration' : streak_group_info.duration,
+					'streakStepLevel' : streak_group_info.step_level,
+					'streakConsistency' : streak_group_info.consistency,
 					'recommendStreakName' : recommend_streak_group_name,
 					'recommendStreakDescription' : recommend_streak_group_description,
 					'userClusterName' : user_cluster_group_name,
@@ -217,25 +226,102 @@ class MessageSender:
 		user_cluster_id = streak.user_cluster_id
 		user_cluster_info = self.md_Userclusterinfo.objects.get(id=user_cluster_id) #yet to do in db
 		user_cluster_group_info = user_cluster_info.group
+		user_cluster_group_id = user_cluster_group_info.id
 		user_cluster_group_name = user_cluster_group_info.name
+		user_cluster_id = user_cluster_group_info.id
 
 		end_date = streak.calendar_date
-		start_date = end_date - datetime.timedelta(days=7)
+		start_date = end_date - self.dt_datetime.timedelta(days=7)
 
-		if comparison_target == "all":
-			calendar_steps = generate_comparison_all_calendar(streak)
-			cohort_steps = generate_comparison_all_cohort(streak)
-		elif comparison_target == "group":
-			calendar_steps = generate_comparison_group_calendar(streak)
-			cohort_steps = generate_comparison_group_cohort(streak)
+		cohort_start_date = streak.cohort_day - 7
+		cohort_end_date = streak.cohort_day
+
+		calendar_steps = self.generate_comparison_calendar(0, user_cluster_group_id, start_date, end_date, comparison_target, awareness)
+		cohort_steps = self.generate_comparison_cohort(0, user_cluster_group_id, cohort_start_date, cohort_end_date, comparison_target, awareness)
+
+		user = streak.user
+		all_steps = self.fetch_all_steps(user, start_date, end_date)
+		all_dates = self.fetch_all_dates(start_date, end_date)
+
+		sorted_steps = sorted(list(all_steps), key=int)
+		count = len(sorted_steps)
+		median_step = sorted_steps[int(self.mt_math.floor(count/2))]
+
+		sorted_calendar_steps = sorted(list(calendar_steps), key=int)
+		calendar_median_step = sorted_calendar_steps[int(self.mt_math.floor(count/2))]
+
+		sorted_cohort_steps = sorted(list(cohort_steps), key=int)
+		cohort_median_step = sorted_cohort_steps[int(self.mt_math.floor(count/2))]
 
 		return {
 					'type' : "stats-comparison",
 					'hasFinishedSurvey' : False,
 					'comparisonTarget' : comparison_target,
 					'userClusterName' : user_cluster_group_name,
-					'startDate' : start_date,
-					'endDate' : end_date,
+					'startDate' : start_date.isoformat(),
+					'endDate' : end_date.isoformat(),
+					'steps' : all_steps,
+					'dates': all_dates,
+					'calendarSteps' : calendar_steps,
+					'cohortSteps' : cohort_steps,
+					'stepLevel': median_step,
+					'calendarStepLevel': calendar_median_step,
+					'cohortStepLevel': cohort_median_step,
+					'survey' : generated_survey
+				}
+	
+	def generate_section_stats_non_comparison(self, streak, comparison_target, awareness):
+		generated_survey = self.generate_survey("stats_non_comparison")
+		end_date = streak.calendar_date
+		start_date = end_date - self.dt_datetime.timedelta(days=7)
+		user = streak.user
+		all_steps = self.fetch_all_steps(user, start_date, end_date)
+		all_dates = self.fetch_all_dates(start_date, end_date)
+
+		sorted_steps = sorted(list(all_steps), key=int)
+		count = len(sorted_steps)
+		median_step = sorted_steps[int(self.mt_math.floor(count/2))]
+
+		return {
+					'type' : "stats-no-comparison",
+					'hasFinishedSurvey' : False,
+					'comparisonTarget' : comparison_target,
+					'startDate' : start_date.isoformat(),
+					'endDate' : end_date.isoformat(),
+					'steps' : all_steps,
+					'dates': all_dates,
+					'stepLevel': median_step,
+					'survey' : generated_survey
+				}
+
+	def generate_section_streak_non_comparison(self, streak, comparison_target, awareness):	
+		generated_survey = self.generate_survey("stats_non_comparison")
+		end_date = streak.calendar_date
+		start_date = end_date - self.dt_datetime.timedelta(days=7)
+		user = streak.user
+		all_steps = self.fetch_all_steps(user, start_date, end_date)
+		all_dates = self.fetch_all_dates(start_date, end_date)
+
+		streak_cluster_id = streak.streak_cluster_id
+		streak_info = self.md_Streakinfo.objects.get(id=streak_cluster_id)
+		streak_group_info = streak_info.group
+		streak_group_name = streak_group_info.name
+		streak_group_description = streak_group_info.description
+		streak_extra_description = streak_info.description
+
+		return {
+					'type' : "streak-no-comparison",
+					'hasFinishedSurvey' : False,
+					'comparisonTaraget' : comparison_target, #or all
+					'streakName' : streak_group_name,
+					'streakDescription' : streak_group_description + streak_extra_description,
+					'streakDuration' : streak_group_info.duration,
+					'streakStepLevel' : streak_group_info.step_level,
+					'streakConsistency' : streak_group_info.consistency,
+					'startDate' : start_date.isoformat(),
+					'endDate' : end_date.isoformat(),
+					'steps' : all_steps,
+					'dates': all_dates,
 					'survey' : generated_survey
 				}
 
@@ -244,6 +330,22 @@ class MessageSender:
 		section_streak_comparison = self.generate_section_streak_comparison(streak, comparison_target, awareness)
 		#section_stats_comparison = self.generate_section_stats_comparison(streak, comparison_target, awareness)
 		return section_streak_comparison
+
+	def generate_section_info(self, streak, comparison_target, awareness):
+		print("here comparison_target: " + comparison_target)
+		print("here awareness: " + awareness)
+		if comparison_target=="none":
+			if awareness=="streak": 
+				return self.generate_section_streak_non_comparison(streak, comparison_target, awareness)
+			else:
+				return self.generate_section_stats_non_comparison(streak, comparison_target, awareness)
+		else:
+			if awareness=="streak":
+				print("here comparison_target: " + comparison_target)
+				print("here awareness: " + awareness)
+				return self.generate_section_streak_comparison(streak, comparison_target, awareness)
+			else:
+				return self.generate_section_stats_comparison(streak, comparison_target, awareness)
 
 	def generate_section_prev_challenge(self):
 		generated_survey = []
@@ -279,44 +381,34 @@ class MessageSender:
 	def generate_section_challenge(self):
 		return {
 					'type' : "challenge",
-					'hasFinishedSurvey' : False,
-					'hasPicked' : False,
-					'pickedIdx' : 0,
-					'hasCompleted' : False,
-					'hasGivenup' : False,
-					'hasAttempted' : False,
 					'options' : [
 					{
 						'title': "Stay active for 30 min when watching TV.",
 						'content' : "Go for a 10 min walk today",
 						'fun' : 5,
 						'difficulty' : 2,
-						'duration': "30min"
+						'duration': "30min",
+						'hasCompleted': False,
+						'hasGivenup': False,
+						'hasFinishedSurvey': False
 					}, {
 						'title': "Try listening to an audiobook when walking.",
 						'content' : "Listen to 5 songs and run",
 						'fun' : 5,
 						'difficulty' : 3,
-						'duration' : "20min"
+						'duration' : "20min",
+						'hasCompleted': False,
+						'hasGivenup': False,
+						'hasFinishedSurvey': False
 					}, {
 						'title': "Walk 1000 steps more when you are coming back home.",
 						'content' : "Contact your best friend and go for a short walk together!",
 						'fun' : 4,
 						'difficulty' : 2,
-						'duration' : "20min"
-					}],
-					'pre_survey' : [{
-						'index' : 0,
-						'type' : "likert",
-						'question' : "To what extent do you feel inferior after seeing comparisons to other users?",
-						'isAnswered' : False,
-						'answer' : ""
-					}, {
-						'index' : 1,
-						'type' : "likert",
-						'question' : "To what extent do you feel encouraged after seeing comparisons to other users?",
-						'isAnswered' : False,
-						'answer' : ""
+						'duration' : "20min",
+						'hasCompleted': False,
+						'hasGivenup': False,
+						'hasFinishedSurvey': False
 					}],
 					'complete_survey' : [{
 						'index' : 0,
@@ -331,20 +423,7 @@ class MessageSender:
 						'isAnswered' : False,
 						'answer' : ""
 					}],
-					'attempted_survey' : [{
-						'index' : 0,
-						'type' : "likert",
-						'question' : "To what extent do you feel inferior after seeing comparisons to other users?",
-						'isAnswered' : False,
-						'answer' : ""
-					}, {
-						'index' : 1,
-						'type' : "likert",
-						'question' : "To what extent do you feel encouraged after seeing comparisons to other users?",
-						'isAnswered' : False,
-						'answer' : ""
-					}],
-					'unattempted_survey' : [{
+					'incomplete_survey' : [{
 						'index' : 0,
 						'type' : "likert",
 						'question' : "To what extent do you feel inferior after seeing comparisons to other users?",
@@ -368,17 +447,32 @@ class MessageSender:
 			msgref = self.fb_db.reference('profile/'+key+'/messages')
 			print("inside a user")
 			#section_graph = self.generate_section_graph()
-			streak = self.md_Streak.objects.get(user_id="8", calendar_date=self.dt_date(2015,11,22).isoformat()) #122
-			section_comparison = self.generate_section_comparison(streak, "group", "streak")
+
+			#Option 1: real data
+			#user_info = self.md_User.objects.get(user_id=key)
+			#user_id = user_info.id
+			#streak = self.md_Streak.objects.get(user_id=user_id, calendar_date=self.dt_date.today().isoformat())
+
+			#Option 2: database data
+			streak = self.md_Streak.objects.get(user_id="9", calendar_date=self.dt_date(2015,10,11).isoformat()) #122
+			#user_info = self.md_User.objects.get(id="9")
+			user_info = self.md_User.objects.get(user_id=key)
+
+			comparison_target = user_info.comparison
+			awareness = user_info.context
+
+			print("yeah " + comparison_target)
+			section_info = self.generate_section_info(streak, comparison_target, awareness)
+			#section_comparison = self.generate_section_comparison(streak, "group", "streak")
 			section_challenge = self.generate_section_challenge()
 			#section_prev_challenge = self.generate_section_prev_challenge()
-			
+			current_date = self.dt_date.today()
 			new_msg_ref = msgref.push()
 			new_msg_ref.set({
 				'content': "hehahah",
-				'time': {'date': 8, 'month': 4, 'year': 2018},
+				'time': {'date': current_date.day, 'month': current_date.month, 'year': current_date.year, 'day': current_date.weekday()},
 				'hasCompleted': False,
-				'sections': [section_comparison, section_challenge]
+				'sections': [section_info, section_challenge]
 			})
 
 
@@ -388,7 +482,7 @@ class MessageSender:
 		#date=date.today(), defaults={'user_id': key, 'message_id': key})
 	#print stepcount
 	
-ms = MessageSender(db, Q, Question, Option, Stepcount, Streak, StreakInfo, StreakGroupInfo, UserClusterInfo, UserClusterGroupInfo, date, datetime, math)
+ms = MessageSender(db, Q, Question, Option, Stepcount, Streak, StreakInfo, StreakGroupInfo, UserClusterInfo, UserClusterGroupInfo, User, date, datetime, math)
 ms.send_messages()
 
 start_date = date.today()

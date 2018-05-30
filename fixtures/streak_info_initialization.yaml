@@ -33,7 +33,7 @@
   pk: 7
   fields: 
     group: 4
-    description: description2
+    description: Also, it seems that you are not walking consistently.
     step_level: 1 #/7
     duration: 2 #/6
     break_length: 2 #/4
@@ -70,7 +70,7 @@
   pk: 12
   fields: 
     group: 6
-    description: description2
+    description: Also, it seems that you are not walking consistently.
     step_level: 3 #/7
     duration: 2 #/6
     break_length: 2 #/4
@@ -127,7 +127,7 @@
   pk: 21
   fields: 
     group: 10
-    description: description2
+    description: Also, it seems that you are losing engagement.
     step_level: 3 #/7
     duration: 4 #/6
     break_length: 1 #/4
@@ -144,7 +144,7 @@
   pk: 22
   fields: 
     group: 10
-    description: description2
+    description: Also, it seems that you are not walking consistently and have a really long break.
     step_level: 3 #/7
     duration: 4 #/6
     break_length: 3 #/4
@@ -171,7 +171,7 @@
   pk: 25
   fields: 
     group: 11
-    description: description2
+    description: Also, it seems that you are not walking consistently.
     step_level: 2 #/7
     duration: 4 #/6
     break_length: 1 #/4
@@ -198,7 +198,7 @@
   pk: 28
   fields: 
     group: 13
-    description: description2
+    description: Also, it seems that you are not walking consistently and have a really long break.
     step_level: 3 #/7
     duration: 5 #/6
     break_length: 2 #/4

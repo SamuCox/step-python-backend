@@ -6,7 +6,12 @@ def import_data(csv, User, Stepcount, Streak):
 	with open(path) as f:
 		reader = csv.reader(f)
 		next(reader)
+		count = 0
+		index = 0
+		max_count = 100000
 		for row in reader:
+			if index >= max_count:
+				break
 			user, created = User.objects.update_or_create(
 					user_id=row[0])
 			user = User.objects.get(user_id=row[0])
@@ -14,5 +19,6 @@ def import_data(csv, User, Stepcount, Streak):
 					user=user, date=row[6], defaults={'step_count': row[13]})
 			streak, created = Streak.objects.update_or_create(
 					user=user, calendar_date=row[6], defaults={'streak_index': row[1], 'streak_cluster_id': row[7], 'user_cluster_id': row[11], 'cohort_day': row[4], 'step_count': row[13]})
+			index = index + 1
  
 import_data(csv, User, Stepcount, Streak);

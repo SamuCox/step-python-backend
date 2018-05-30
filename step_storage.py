@@ -53,7 +53,7 @@ class StepStorageManager:
 			current_date = self.dt_date.today()
 			user = self.md_User.objects.get(user_id=key)
 			self.check_and_add_step(user, current_date)
-			self.store_current_cluster(user, current_date - self.dt_datetime.timedelta(1))
+			#self.store_current_cluster(user, current_date - self.dt_datetime.timedelta(1))
 			self.store_current_cluster(user, current_date)
 
 	#def store_all_streaks(self):
